@@ -1,5 +1,6 @@
 module BirdService
   class App < Padrino::Application
+    register Padrino::Rendering
     register Padrino::Mailer
     register Padrino::Helpers
     enable :sessions
@@ -13,6 +14,7 @@ module BirdService
         $!.errors.each { |k,v| view_obj[:errors][k] = (v.is_a?(Array) ? v : [v]) }
       else
         http_status = 500
+        puts "#{$!}"
         view_obj[:description] = "Unexpected server error"
       end
       error http_status, view_obj.to_json
